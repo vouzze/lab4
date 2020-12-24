@@ -1,7 +1,6 @@
 package com.lpnu.service.impl;
 
 import com.lpnu.dto.UserDTO;
-import com.lpnu.entity.User;
 import com.lpnu.exception.ServiceException;
 import com.lpnu.mapper.UserToUserDTOMapper;
 import com.lpnu.repository.UserRepository;

@@ -2,22 +2,27 @@ package com.lpnu.mapper;
 
 import com.lpnu.dto.BookmarkDTO;
 import com.lpnu.entity.Bookmark;
-import com.lpnu.entity.User;
+import com.lpnu.repository.UserRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 
 public class BookmarkToBookmarkDTOMapper {
+    @Autowired
+    private MangaToMangaDTOMapper mangaMapper;
+    @Autowired
+    private UserRepository userRepository;
 
-    public Bookmark toEntity(final BookmarkDTO bookmarkDTO, final User user) {
-        if (user == null) {
+    public Bookmark toEntity(final BookmarkDTO bookmarkDTO, final Long userId) {
+        if (userId == null) {
             //todo custom exception
         }
         final Bookmark bookmark = new Bookmark();
 
-        bookmark.setManga(bookmarkDTO.getManga());
+        bookmark.setManga(mangaMapper.toEntity(bookmarkDTO.getMangaDTO()));
         bookmark.setStatus(bookmarkDTO.getStatus());
         bookmark.setRating(bookmarkDTO.getRating());
         bookmark.setChapter(bookmarkDTO.getChapter());
         bookmark.setPage(bookmarkDTO.getPage());
-        bookmark.setUser(user);
+        bookmark.setUser(userRepository.getUserById(userId));
 
         return bookmark;
     }
@@ -25,7 +30,7 @@ public class BookmarkToBookmarkDTOMapper {
     public BookmarkDTO toDTO(final Bookmark bookmark) {
         final BookmarkDTO bookmarkDTO = new BookmarkDTO();
 
-        bookmarkDTO.setManga(bookmark.getManga());
+        bookmarkDTO.setMangaDTO(mangaMapper.toDTO(bookmark.getManga()));
         bookmarkDTO.setStatus(bookmark.getStatus());
         bookmarkDTO.setRating(bookmark.getRating());
         bookmarkDTO.setChapter(bookmark.getChapter());

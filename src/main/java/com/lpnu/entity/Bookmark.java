@@ -3,9 +3,9 @@ package com.lpnu.entity;
 public class Bookmark {
     Manga manga;
     private String status;
-    private double rating;
-    private double chapter;
-    private int page;
+    private Double rating;
+    private Double chapter;
+    private Integer page;
     private User user;
 
     public Bookmark() {
@@ -17,7 +17,7 @@ public class Bookmark {
         this.user = user;
     }
 
-    public Bookmark(final Manga manga, final double chapter, final int page, final User user) {
+    public Bookmark(final Manga manga, final Double chapter, final Integer page, final User user) {
         this.manga = manga;
         this.status = "now reading";
         this.chapter = chapter;
@@ -25,7 +25,7 @@ public class Bookmark {
         this.user = user;
     }
 
-    public Bookmark(final Manga manga, final double rating, final User user) {
+    public Bookmark(final Manga manga, final Double rating, final User user) {
         this.manga = manga;
         this.status = "already read";
         this.rating = rating;
@@ -48,27 +48,27 @@ public class Bookmark {
         this.status = status;
     }
 
-    public double getRating() {
+    public Double getRating() {
         return rating;
     }
 
-    public void setRating(final double rating) {
+    public void setRating(final Double rating) {
         this.rating = rating;
     }
 
-    public double getChapter() {
+    public Double getChapter() {
         return chapter;
     }
 
-    public void setChapter(final double chapter) {
+    public void setChapter(final Double chapter) {
         this.chapter = chapter;
     }
 
-    public int getPage() {
+    public Integer getPage() {
         return page;
     }
 
-    public void setPage(final int page) {
+    public void setPage(final Integer page) {
         this.page = page;
     }
 

@@ -3,39 +3,39 @@ package com.lpnu.dto;
 import com.lpnu.entity.Manga;
 
 public class BookmarkDTO {
-    Manga manga;
+    private MangaDTO mangaDTO;
     private String status;
-    private double rating;
-    private double chapter;
-    private int page;
+    private Double rating;
+    private Double chapter;
+    private Integer page;
 
     public BookmarkDTO() {
     }
 
-    public BookmarkDTO(final Manga manga, final String status) {
-        this.manga = manga;
+    public BookmarkDTO(final MangaDTO mangaDTO, final String status) {
+        this.mangaDTO = mangaDTO;
         this.status = status;
     }
 
-    public BookmarkDTO(final Manga manga, final String status, final double chapter, final int page) {
-        this.manga = manga;
+    public BookmarkDTO(final MangaDTO mangaDTO, final String status, final Double chapter, final Integer page) {
+        this.mangaDTO = mangaDTO;
         this.status = status;
         this.chapter = chapter;
         this.page = page;
     }
 
-    public BookmarkDTO(final Manga manga, final String status, final double rating) {
-        this.manga = manga;
+    public BookmarkDTO(final MangaDTO mangaDTO, final String status, final Double rating) {
+        this.mangaDTO = mangaDTO;
         this.status = status;
         this.rating = rating;
     }
 
-    public Manga getManga() {
-        return manga;
+    public MangaDTO getMangaDTO() {
+        return mangaDTO;
     }
 
-    public void setManga(final Manga manga) {
-        this.manga = manga;
+    public void setMangaDTO(final MangaDTO mangaDTO) {
+        this.mangaDTO = mangaDTO;
     }
 
     public String getStatus() {
@@ -46,27 +46,27 @@ public class BookmarkDTO {
         this.status = status;
     }
 
-    public double getRating() {
+    public Double getRating() {
         return rating;
     }
 
-    public void setRating(final double rating) {
+    public void setRating(final Double rating) {
         this.rating = rating;
     }
 
-    public double getChapter() {
+    public Double getChapter() {
         return chapter;
     }
 
-    public void setChapter(final double chapter) {
+    public void setChapter(final Double chapter) {
         this.chapter = chapter;
     }
 
-    public int getPage() {
+    public Integer getPage() {
         return page;
     }
 
-    public void setPage(final int page) {
+    public void setPage(final Integer page) {
         this.page = page;
     }
 }

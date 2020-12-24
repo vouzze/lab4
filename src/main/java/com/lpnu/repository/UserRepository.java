@@ -5,7 +5,6 @@ import com.lpnu.exception.ServiceException;
 import org.springframework.stereotype.Repository;
 
 import javax.annotation.PostConstruct;
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -46,7 +45,7 @@ public class UserRepository {
 
     public User updateUser(final User user){
         if(user.getId() == null){
-            throw new ServiceException(400, "User shouldn't have an id ", null);
+            throw new ServiceException(400, "User should have an id ", null);
         }
 
         final User savedUser = getUserById(user.getId());
