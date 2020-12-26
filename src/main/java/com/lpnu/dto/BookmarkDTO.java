@@ -1,9 +1,7 @@
 package com.lpnu.dto;
 
-import com.lpnu.entity.Manga;
-
 public class BookmarkDTO {
-    private MangaDTO mangaDTO;
+    private MangaDTO manga;
     private String status;
     private Double rating;
     private Double chapter;
@@ -12,30 +10,30 @@ public class BookmarkDTO {
     public BookmarkDTO() {
     }
 
-    public BookmarkDTO(final MangaDTO mangaDTO, final String status) {
-        this.mangaDTO = mangaDTO;
-        this.status = status;
+    public BookmarkDTO(final MangaDTO manga) {
+        this.manga = manga;
+        this.status = "want to read";
     }
 
-    public BookmarkDTO(final MangaDTO mangaDTO, final String status, final Double chapter, final Integer page) {
-        this.mangaDTO = mangaDTO;
-        this.status = status;
+    public BookmarkDTO(final MangaDTO manga, final Double chapter, final Integer page) {
+        this.manga = manga;
+        this.status = "now reading";
         this.chapter = chapter;
         this.page = page;
     }
 
-    public BookmarkDTO(final MangaDTO mangaDTO, final String status, final Double rating) {
-        this.mangaDTO = mangaDTO;
-        this.status = status;
+    public BookmarkDTO(final MangaDTO manga, final Double rating) {
+        this.manga = manga;
+        this.status = "already read";
         this.rating = rating;
     }
 
-    public MangaDTO getMangaDTO() {
-        return mangaDTO;
+    public MangaDTO getManga() {
+        return manga;
     }
 
-    public void setMangaDTO(final MangaDTO mangaDTO) {
-        this.mangaDTO = mangaDTO;
+    public void setManga(final MangaDTO manga) {
+        this.manga = manga;
     }
 
     public String getStatus() {

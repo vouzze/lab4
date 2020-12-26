@@ -32,8 +32,46 @@ public class BookmarkRepository {
                 .collect(Collectors.toList());
     }
 
+    public List<Bookmark> getWantToReadBookmarksByUserId(final Long userId){
+        return savedBookmarks.stream()
+                .filter(e -> e.getUser().getId().equals(userId))
+                .filter(e -> e.getStatus().equals("want to read"))
+                .collect(Collectors.toList());
+    }
+
+    public List<Bookmark> getNowReadingBookmarksByUserId(final Long userId){
+        return savedBookmarks.stream()
+                .filter(e -> e.getUser().getId().equals(userId))
+                .filter(e -> e.getStatus().equals("now reading"))
+                .collect(Collectors.toList());
+    }
+    public List<Bookmark> getAlreadyReadBookmarksByUserId(final Long userId){
+        return savedBookmarks.stream()
+                .filter(e -> e.getUser().getId().equals(userId))
+                .filter(e -> e.getStatus().equals("already read"))
+                .collect(Collectors.toList());
+    }
+
     public List<Bookmark> getAllBookmarks(){
         return savedBookmarks;
+    }
+
+    public List<Bookmark> getAllWantToReadBookmarks(){
+        return savedBookmarks.stream()
+                .filter(e -> e.getStatus().equals("want to read"))
+                .collect(Collectors.toList());
+    }
+
+    public List<Bookmark> getAllNowReadingBookmarks(){
+        return savedBookmarks.stream()
+                .filter(e -> e.getStatus().equals("now reading"))
+                .collect(Collectors.toList());
+    }
+
+    public List<Bookmark> getAllAlreadyReadBookmarks(){
+        return savedBookmarks.stream()
+                .filter(e -> e.getStatus().equals("already read"))
+                .collect(Collectors.toList());
     }
 
     public Bookmark createBookmark(final Bookmark bookmark){
@@ -47,8 +85,18 @@ public class BookmarkRepository {
             throw new ServiceException(400, "Bookmark should have either rating or chapter ", null);
         } else if (bookmark.getRating() != null && bookmark.getPage() != null) {
             throw new ServiceException(400, "Bookmark should have either rating or page ", null);
-        } else if (!(bookmark.getChapter() != null && bookmark.getPage() != null)) {
+        } else if (bookmark.getChapter() != null && bookmark.getPage() == null) {
             throw new ServiceException(400, "If bookmark has chapter, it should have page as well ", null);
+        } else if (bookmark.getChapter() == null && bookmark.getPage() != null) {
+            throw new ServiceException(400, "If bookmark has page, it should have chapter as well ", null);
+        }
+
+        if (bookmark.getRating() != null) {
+            bookmark.setStatus("already read");
+        } else if (bookmark.getChapter() != null && bookmark.getPage() != null) {
+            bookmark.setStatus("now reading");
+        } else {
+            bookmark.setStatus("want to read");
         }
 
         savedBookmarks.add(bookmark);
@@ -69,8 +117,10 @@ public class BookmarkRepository {
             throw new ServiceException(400, "Bookmark should have either rating or chapter ", null);
         } else if (bookmark.getRating() != null && bookmark.getPage() != null) {
             throw new ServiceException(400, "Bookmark should have either rating or page ", null);
-        } else if (!(bookmark.getChapter() != null && bookmark.getPage() != null)) {
+        } else if (bookmark.getChapter() != null && bookmark.getPage() == null) {
             throw new ServiceException(400, "If bookmark has chapter, it should have page as well ", null);
+        } else if (bookmark.getChapter() == null && bookmark.getPage() != null) {
+            throw new ServiceException(400, "If bookmark has page, it should have chapter as well ", null);
         }
 
         if (bookmark.getRating() != null) {

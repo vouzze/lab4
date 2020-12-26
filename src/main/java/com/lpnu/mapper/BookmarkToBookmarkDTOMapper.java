@@ -2,22 +2,28 @@ package com.lpnu.mapper;
 
 import com.lpnu.dto.BookmarkDTO;
 import com.lpnu.entity.Bookmark;
+import com.lpnu.exception.ServiceException;
+import com.lpnu.repository.MangaRepository;
 import com.lpnu.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
+@Component
 public class BookmarkToBookmarkDTOMapper {
     @Autowired
     private MangaToMangaDTOMapper mangaMapper;
     @Autowired
+    private MangaRepository mangaRepository;
+    @Autowired
     private UserRepository userRepository;
 
-    public Bookmark toEntity(final BookmarkDTO bookmarkDTO, final Long userId) {
+    public Bookmark toEntity(final BookmarkDTO bookmarkDTO, final Long userId, final Long mangaId) {
         if (userId == null) {
-            //todo custom exception
+            throw new ServiceException(400, "Bookmark should have a user ", null);
         }
         final Bookmark bookmark = new Bookmark();
 
-        bookmark.setManga(mangaMapper.toEntity(bookmarkDTO.getMangaDTO()));
+        bookmark.setManga(mangaRepository.getMangaById(mangaId));
         bookmark.setStatus(bookmarkDTO.getStatus());
         bookmark.setRating(bookmarkDTO.getRating());
         bookmark.setChapter(bookmarkDTO.getChapter());
@@ -30,7 +36,7 @@ public class BookmarkToBookmarkDTOMapper {
     public BookmarkDTO toDTO(final Bookmark bookmark) {
         final BookmarkDTO bookmarkDTO = new BookmarkDTO();
 
-        bookmarkDTO.setMangaDTO(mangaMapper.toDTO(bookmark.getManga()));
+        bookmarkDTO.setManga(mangaMapper.toDTO(bookmark.getManga()));
         bookmarkDTO.setStatus(bookmark.getStatus());
         bookmarkDTO.setRating(bookmark.getRating());
         bookmarkDTO.setChapter(bookmark.getChapter());

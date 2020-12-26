@@ -35,6 +35,26 @@ public class BookmarkServiceImpl implements BookmarkService {
                 .map(e -> bookmarkMapper.toDTO(e))
                 .collect(Collectors.toList());
     }
+    @Override
+    public List<BookmarkDTO> getWantToReadBookmarksByUserId(final Long userId) {
+        return bookmarkRepository.getWantToReadBookmarksByUserId(userId).stream()
+                .map(e -> bookmarkMapper.toDTO(e))
+                .collect(Collectors.toList());
+    }
+    @Override
+    public List<BookmarkDTO> getNowReadingBookmarksByUserId(final Long userId) {
+        return bookmarkRepository.getNowReadingBookmarksByUserId(userId).stream()
+                .map(e -> bookmarkMapper.toDTO(e))
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    public List<BookmarkDTO> getAlreadyReadBookmarksByUserId(final Long userId) {
+        return bookmarkRepository.getAlreadyReadBookmarksByUserId(userId).stream()
+                .map(e -> bookmarkMapper.toDTO(e))
+                .collect(Collectors.toList());
+    }
+
 
     @Override
     public List<BookmarkDTO> getAllBookmarks() {
@@ -44,25 +64,45 @@ public class BookmarkServiceImpl implements BookmarkService {
     }
 
     @Override
-    public BookmarkDTO createBookmark(final BookmarkDTO bookmarkDTO, final Long userId) {
+    public List<BookmarkDTO> getAllWantToReadBookmarks() {
+        return bookmarkRepository.getAllWantToReadBookmarks().stream()
+                .map(e -> bookmarkMapper.toDTO(e))
+                .collect(Collectors.toList());
+    }
+    @Override
+    public List<BookmarkDTO> getAllNowReadingBookmarks() {
+        return bookmarkRepository.getAllNowReadingBookmarks().stream()
+                .map(e -> bookmarkMapper.toDTO(e))
+                .collect(Collectors.toList());
+    }
+    @Override
+    public List<BookmarkDTO> getAllAlreadyReadBookmarks() {
+        return bookmarkRepository.getAllAlreadyReadBookmarks().stream()
+                .map(e -> bookmarkMapper.toDTO(e))
+                .collect(Collectors.toList());
+    }
+    @Override
+    public BookmarkDTO createBookmark(final BookmarkDTO bookmarkDTO, final Long userId, final Long mangaId) {
         if(userId == null){
             throw new ServiceException(400, "Bookmark should have user id ", null);
-        } else if (bookmarkDTO.getMangaDTO().getId() == null) {
+        } else if (mangaId == null) {
             throw new ServiceException(400, "Bookmark should have manga id ", null);
         }
 
-        return bookmarkMapper.toDTO(bookmarkRepository.createBookmark(bookmarkMapper.toEntity(bookmarkDTO, userId)));
+        return bookmarkMapper.toDTO(bookmarkRepository.createBookmark(bookmarkMapper.toEntity(bookmarkDTO, userId,
+                mangaId)));
     }
 
     @Override
-    public BookmarkDTO updateBookmark(final BookmarkDTO bookmarkDTO, final Long userId) {
+    public BookmarkDTO updateBookmark(final BookmarkDTO bookmarkDTO, final Long userId, final Long mangaId) {
         if(userId == null){
             throw new ServiceException(400, "Bookmark should have user id ", null);
-        } else if (bookmarkDTO.getMangaDTO().getId() == null) {
+        } else if (mangaId == null) {
             throw new ServiceException(400, "Bookmark should have manga id ", null);
         }
 
-        return bookmarkMapper.toDTO(bookmarkRepository.updateBookmark(bookmarkMapper.toEntity(bookmarkDTO, userId)));
+        return bookmarkMapper.toDTO(bookmarkRepository.updateBookmark(bookmarkMapper.toEntity(bookmarkDTO, userId,
+                mangaId)));
     }
 
     @Override
