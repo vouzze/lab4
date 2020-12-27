@@ -11,8 +11,9 @@ public class MangaToMangaDTOMapper {
 
         manga.setId(mangaDTO.getId());
         manga.setTitle(mangaDTO.getTitle());
-        manga.setAuthorName(mangaDTO.getAuthorName());
+        manga.setAuthor(mangaDTO.getAuthor());
         manga.setRating(mangaDTO.getRating());
+        manga.setChapters(mangaDTO.getChapters());
 
         return manga;
     }
@@ -22,8 +23,9 @@ public class MangaToMangaDTOMapper {
 
         mangaDTO.setId(manga.getId());
         mangaDTO.setTitle(manga.getTitle());
-        mangaDTO.setAuthorName(manga.getAuthorName());
+        mangaDTO.setAuthor(manga.getAuthor());
         mangaDTO.setRating(manga.getRating());
+        mangaDTO.setChapters(manga.getChapters());
 
         return mangaDTO;
     }

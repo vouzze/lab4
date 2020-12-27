@@ -1,40 +1,47 @@
 package com.lpnu.dto;
 
-import com.lpnu.entity.Manga;
+import javax.validation.Valid;
+import javax.validation.constraints.DecimalMax;
+import javax.validation.constraints.DecimalMin;
+import javax.validation.constraints.PositiveOrZero;
 
 public class BookmarkDTO {
-    Manga manga;
+    private MangaDTO manga;
     private String status;
-    private double rating;
-    private double chapter;
-    private int page;
+    @DecimalMin("0.0")
+    @DecimalMax("5.0")
+    private Double rating;
+    @PositiveOrZero
+    private Double chapter;
+    @PositiveOrZero
+    private Integer page;
 
     public BookmarkDTO() {
     }
 
-    public BookmarkDTO(final Manga manga, final String status) {
+    public BookmarkDTO(final MangaDTO manga) {
         this.manga = manga;
-        this.status = status;
+        this.status = "want to read";
     }
 
-    public BookmarkDTO(final Manga manga, final String status, final double chapter, final int page) {
+    public BookmarkDTO(final MangaDTO manga, final @Valid Double chapter, final @Valid Integer page) {
         this.manga = manga;
-        this.status = status;
+        this.status = "now reading";
         this.chapter = chapter;
         this.page = page;
     }
 
-    public BookmarkDTO(final Manga manga, final String status, final double rating) {
+    public BookmarkDTO(final MangaDTO manga, final @Valid Double rating) {
         this.manga = manga;
-        this.status = status;
+        this.status = "already read";
         this.rating = rating;
     }
 
-    public Manga getManga() {
+    public MangaDTO getManga() {
         return manga;
     }
 
-    public void setManga(final Manga manga) {
+    public void setManga(final MangaDTO manga) {
         this.manga = manga;
     }
 
@@ -46,27 +53,27 @@ public class BookmarkDTO {
         this.status = status;
     }
 
-    public double getRating() {
+    public Double getRating() {
         return rating;
     }
 
-    public void setRating(final double rating) {
+    public void setRating(final @Valid Double rating) {
         this.rating = rating;
     }
 
-    public double getChapter() {
+    public Double getChapter() {
         return chapter;
     }
 
-    public void setChapter(final double chapter) {
+    public void setChapter(final @Valid Double chapter) {
         this.chapter = chapter;
     }
 
-    public int getPage() {
+    public Integer getPage() {
         return page;
     }
 
-    public void setPage(final int page) {
+    public void setPage(final @Valid Integer page) {
         this.page = page;
     }
 }

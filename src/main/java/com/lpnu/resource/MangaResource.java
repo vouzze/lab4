@@ -5,6 +5,7 @@ import com.lpnu.service.MangaService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @RestController
@@ -23,12 +24,12 @@ public class MangaResource {
     }
 
     @PostMapping("/mangas")
-    public MangaDTO createManga(final @RequestBody MangaDTO mangaDTO){
+    public MangaDTO createManga(final @Valid @RequestBody MangaDTO mangaDTO){
         return mangaService.createManga(mangaDTO);
     }
 
     @PutMapping("/mangas")
-    public MangaDTO updateManga(final @RequestBody MangaDTO mangaDTO){
+    public MangaDTO updateManga(final @Valid @RequestBody MangaDTO mangaDTO){
         return mangaService.updateManga(mangaDTO);
     }
 
