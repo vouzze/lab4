@@ -20,24 +20,44 @@ public class AchievementResource {
         return achievementService.getAllAchievementsByUserId(id);
     }
 
-    @GetMapping("/achievements/all-bookmarks/{id}")
-    public Integer getAllBookmarksQuantityByUserId(final @PathVariable Long id) {
-        return achievementService.getAllBookmarksQuantityByUserId(id);
+    @GetMapping("/achievements/all-bookmarks/user/{userId}")
+    public Integer getAllBookmarksQuantityByUserId(final @PathVariable Long userId) {
+        return achievementService.getAllBookmarksQuantityByUserId(userId);
     }
 
-    @GetMapping("/achievements/want-to-read-bookmarks/{id}")
-    public Integer getWantToReadBookmarksQuantityByUserId(final @PathVariable Long id) {
-        return achievementService.getWantToReadBookmarksQuantityByUserId(id);
+    @GetMapping("/achievements/want-to-read-bookmarks/user/{userId}")
+    public Integer getWantToReadBookmarksQuantityByUserId(final @PathVariable Long userId) {
+        return achievementService.getWantToReadBookmarksQuantityByUserId(userId);
     }
 
-    @GetMapping("/achievements/now-reading-bookmarks/{id}")
-    public Integer getNowReadingBookmarksQuantityByUserId(final @PathVariable Long id) {
-        return achievementService.getNowReadingBookmarksQuantityByUserId(id);
+    @GetMapping("/achievements/now-reading-bookmarks/user/{userId}")
+    public Integer getNowReadingBookmarksQuantityByUserId(final @PathVariable Long userId) {
+        return achievementService.getNowReadingBookmarksQuantityByUserId(userId);
     }
 
-    @GetMapping("/achievements/already-read-bookmarks/{id}")
-    public Integer getAlreadyReadBookmarksQuantityByUserId(final @PathVariable Long id) {
-        return achievementService.getAlreadyReadBookmarksQuantityByUserId(id);
+    @GetMapping("/achievements/already-read-bookmarks/user/{userId}")
+    public Integer getAlreadyReadBookmarksQuantityByUserId(final @PathVariable Long userId) {
+        return achievementService.getAlreadyReadBookmarksQuantityByUserId(userId);
+    }
+
+    @GetMapping("/achievements/all-bookmarks/manga/{mangaId}")
+    public Integer getAllBookmarksQuantityByMangaId(final @PathVariable Long mangaId) {
+        return achievementService.getAllBookmarksQuantityByMangaId(mangaId);
+    }
+
+    @GetMapping("/achievements/want-to-read-bookmarks/manga/{mangaId}")
+    public Integer getWantToReadBookmarksQuantityByMangaId(final @PathVariable Long mangaId) {
+        return achievementService.getWantToReadBookmarksQuantityByMangaId(mangaId);
+    }
+
+    @GetMapping("/achievements/now-reading-bookmarks/manga/{mangaId}")
+    public Integer getNowReadingBookmarksQuantityByMangaId(final @PathVariable Long mangaId) {
+        return achievementService.getNowReadingBookmarksQuantityByMangaId(mangaId);
+    }
+
+    @GetMapping("/achievements/already-read-bookmarks/manga/{mangaId}")
+    public Integer getAlreadyReadBookmarksQuantityByMangaId(final @PathVariable Long mangaId) {
+        return achievementService.getAlreadyReadBookmarksQuantityByUserId(mangaId);
     }
 
     @PostMapping("/achievements/{id}")

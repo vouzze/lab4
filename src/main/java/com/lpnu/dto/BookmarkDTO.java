@@ -1,10 +1,19 @@
 package com.lpnu.dto;
 
+import javax.validation.Valid;
+import javax.validation.constraints.DecimalMax;
+import javax.validation.constraints.DecimalMin;
+import javax.validation.constraints.PositiveOrZero;
+
 public class BookmarkDTO {
     private MangaDTO manga;
     private String status;
+    @DecimalMin("0.0")
+    @DecimalMax("5.0")
     private Double rating;
+    @PositiveOrZero
     private Double chapter;
+    @PositiveOrZero
     private Integer page;
 
     public BookmarkDTO() {
@@ -15,14 +24,14 @@ public class BookmarkDTO {
         this.status = "want to read";
     }
 
-    public BookmarkDTO(final MangaDTO manga, final Double chapter, final Integer page) {
+    public BookmarkDTO(final MangaDTO manga, final @Valid Double chapter, final @Valid Integer page) {
         this.manga = manga;
         this.status = "now reading";
         this.chapter = chapter;
         this.page = page;
     }
 
-    public BookmarkDTO(final MangaDTO manga, final Double rating) {
+    public BookmarkDTO(final MangaDTO manga, final @Valid Double rating) {
         this.manga = manga;
         this.status = "already read";
         this.rating = rating;
@@ -48,7 +57,7 @@ public class BookmarkDTO {
         return rating;
     }
 
-    public void setRating(final Double rating) {
+    public void setRating(final @Valid Double rating) {
         this.rating = rating;
     }
 
@@ -56,7 +65,7 @@ public class BookmarkDTO {
         return chapter;
     }
 
-    public void setChapter(final Double chapter) {
+    public void setChapter(final @Valid Double chapter) {
         this.chapter = chapter;
     }
 
@@ -64,7 +73,7 @@ public class BookmarkDTO {
         return page;
     }
 
-    public void setPage(final Integer page) {
+    public void setPage(final @Valid Integer page) {
         this.page = page;
     }
 }

@@ -49,6 +49,26 @@ public class AchievementServiceImpl implements AchievementService {
     }
 
     @Override
+    public Integer getAllBookmarksQuantityByMangaId(final Long mangaId) {
+        return bookmarkService.getBookmarksByMangaId(mangaId).size();
+    }
+
+    @Override
+    public Integer getWantToReadBookmarksQuantityByMangaId(final Long mangaId) {
+        return bookmarkService.getWantToReadBookmarksByMangaId(mangaId).size();
+    }
+
+    @Override
+    public Integer getNowReadingBookmarksQuantityByMangaId(final Long mangaId) {
+        return bookmarkService.getNowReadingBookmarksByMangaId(mangaId).size();
+    }
+
+    @Override
+    public Integer getAlreadyReadBookmarksQuantityByMangaId(final Long mangaId) {
+        return bookmarkService.getAlreadyReadBookmarksByMangaId(mangaId).size();
+    }
+
+    @Override
     public List<String> addAchievementsByUserId(final Long userId) {
 
         userService.getUserById(userId);
@@ -57,19 +77,23 @@ public class AchievementServiceImpl implements AchievementService {
             savedAchievements.put(userId, new ArrayList<>(Collections.singleton("Newbie")));
         }
 
-        if (getWantToReadBookmarksQuantityByUserId(userId) >= 3) {
+        if (getWantToReadBookmarksQuantityByUserId(userId) >= 3 &&
+                !savedAchievements.get(userId).contains("Dreamy")) {
             savedAchievements.get(userId).add("Dreamy");
         }
 
-        if (getNowReadingBookmarksQuantityByUserId(userId) >= 3) {
+        if (getNowReadingBookmarksQuantityByUserId(userId) >= 3 &&
+                !savedAchievements.get(userId).contains("Realistic")) {
             savedAchievements.get(userId).add("Realistic");
         }
 
-        if (getAlreadyReadBookmarksQuantityByUserId(userId) >= 3) {
+        if (getAlreadyReadBookmarksQuantityByUserId(userId) >= 3 &&
+                !savedAchievements.get(userId).contains("Experienced")) {
             savedAchievements.get(userId).add("Experienced");
         }
 
-        if (getAllBookmarksQuantityByUserId(userId) >= 10) {
+        if (getAllBookmarksQuantityByUserId(userId) >= 10 &&
+                !savedAchievements.get(userId).contains("Overlord")) {
             savedAchievements.get(userId).add("Overlord");
         }
 

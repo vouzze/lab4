@@ -1,16 +1,26 @@
 package com.lpnu.dto;
 
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Past;
+import javax.validation.constraints.Size;
+
 import java.time.LocalDate;
 
 public class UserDTO {
     private Long id;
+    @NotNull
+    @NotBlank
+    @Size(min = 3, max = 30)
     private String nickname;
+    @NotNull
+    @Past
     private LocalDate birth;
 
     public UserDTO() {
     }
 
-    public UserDTO(final Long id, final String nickname, final LocalDate birth) {
+    public UserDTO(final Long id, final String nickname, @NotNull final LocalDate birth) {
         this.id = id;
         this.nickname = nickname;
         this.birth = birth;

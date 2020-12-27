@@ -25,8 +25,8 @@ public class BookmarkServiceImpl implements BookmarkService {
     private BookmarkToBookmarkDTOMapper bookmarkMapper;
 
     @Override
-    public BookmarkDTO getBookmarkByMangaAndUserId(final Long mangaId, final Long userId) {
-        return bookmarkMapper.toDTO(bookmarkRepository.getBookmarkByMangaAndUserId(mangaId, userId));
+    public BookmarkDTO getBookmarkByMangaAndUserId(final Long userId, final Long mangaId) {
+        return bookmarkMapper.toDTO(bookmarkRepository.getBookmarkByMangaAndUserId(userId, mangaId));
     }
 
     @Override
@@ -54,7 +54,33 @@ public class BookmarkServiceImpl implements BookmarkService {
                 .map(e -> bookmarkMapper.toDTO(e))
                 .collect(Collectors.toList());
     }
+    @Override
+    public List<BookmarkDTO> getBookmarksByMangaId(final Long mangaId) {
+        return bookmarkRepository.getBookmarksByMangaId(mangaId).stream()
+                .map(e -> bookmarkMapper.toDTO(e))
+                .collect(Collectors.toList());
+    }
 
+    @Override
+    public List<BookmarkDTO> getWantToReadBookmarksByMangaId(final Long mangaId) {
+        return bookmarkRepository.getWantToReadBookmarksByMangaId(mangaId).stream()
+                .map(e -> bookmarkMapper.toDTO(e))
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    public List<BookmarkDTO> getNowReadingBookmarksByMangaId(final Long mangaId) {
+        return bookmarkRepository.getNowReadingBookmarksByMangaId(mangaId).stream()
+                .map(e -> bookmarkMapper.toDTO(e))
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    public List<BookmarkDTO> getAlreadyReadBookmarksByMangaId(final Long mangaId) {
+        return bookmarkRepository.getAlreadyReadBookmarksByMangaId(mangaId).stream()
+                .map(e -> bookmarkMapper.toDTO(e))
+                .collect(Collectors.toList());
+    }
 
     @Override
     public List<BookmarkDTO> getAllBookmarks() {
@@ -106,22 +132,31 @@ public class BookmarkServiceImpl implements BookmarkService {
     }
 
     @Override
-    public void deleteBookmarkByMangaAndUserId(final Long mangaId, final Long userId) {
+    public void deleteBookmarkByMangaAndUserId(final Long userId, final Long mangaId) {
         if(userId == null){
             throw new ServiceException(400, "Bookmark should have user id ", null);
         } else if (mangaId == null) {
             throw new ServiceException(400, "Bookmark should have manga id ", null);
         }
 
-        bookmarkRepository.deleteBookmarkByMangaAndUserId(mangaId, userId);
+        bookmarkRepository.deleteBookmarkByMangaAndUserId(userId, mangaId);
     }
 
     @Override
-    public void deleteBookmarkSByUserId(final Long userId) {
+    public void deleteBookmarksByUserId(final Long userId) {
         if(userId == null) {
             throw new ServiceException(400, "Bookmark should have user id ", null);
         }
 
-        bookmarkRepository.deleteBookmarkSByUserId(userId);
+        bookmarkRepository.deleteBookmarksByUserId(userId);
+    }
+
+    @Override
+    public void deleteBookmarksByMangaId(final Long mangaId) {
+        if(mangaId == null) {
+            throw new ServiceException(400, "Bookmark should have manga id ", null);
+        }
+
+        bookmarkRepository.deleteBookmarksByMangaId(mangaId);
     }
 }

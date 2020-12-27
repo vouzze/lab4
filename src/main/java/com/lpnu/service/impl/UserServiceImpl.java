@@ -7,7 +7,11 @@ import com.lpnu.repository.UserRepository;
 import com.lpnu.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.PathVariable;
 
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -33,23 +37,24 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public UserDTO createUser(final UserDTO userDTO) {
+    public UserDTO createUser(final UserDTO userDTO, final String password) {
 
-        if(userDTO.getId() != null){
+        if (userDTO.getId() != null) {
             throw new ServiceException(400, "User shouldn't have an id ", null);
         }
 
-        return userMapper.toDTO(userRepository.createUser(userMapper.toEntity(userDTO, null)));
+        return userMapper.toDTO(userRepository.createUser(userMapper.toEntity(userDTO, password, null)));
     }
 
     @Override
-    public UserDTO updateUser(final UserDTO userDTO) {
+    public UserDTO updateUser(final UserDTO userDTO, final String password) {
 
-        if(userDTO.getId() == null){
+        if (userDTO.getId() == null) {
             throw new ServiceException(400, "User should have an id ", null);
         }
 
-        return userMapper.toDTO(userRepository.updateUser(userMapper.toEntity(userDTO, null)));
+        return userMapper.toDTO(userRepository.updateUser(userMapper.toEntity(userDTO, password,
+                userRepository.getUserById(userDTO.getId()).getBookmarks())));
     }
 
     @Override

@@ -1,7 +1,10 @@
 package com.lpnu.repository;
 
+import com.lpnu.entity.Bookmark;
 import com.lpnu.entity.Manga;
 import com.lpnu.exception.ServiceException;
+import com.lpnu.service.AchievementService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import javax.annotation.PostConstruct;
@@ -11,8 +14,13 @@ import java.util.stream.Collectors;
 
 @Repository
 public class MangaRepository {
+    @Autowired
+    private BookmarkRepository bookmarkRepository;
+    @Autowired
+    private AchievementService achievementService;
+
     @PostConstruct
-    public void init(){
+    public void init() {
         savedMangas = new ArrayList<>();
     }
 
@@ -31,8 +39,10 @@ public class MangaRepository {
     }
 
     public Manga createManga(final Manga manga) {
-        if(manga.getId() != null){
+        if (manga.getId() != null) {
             throw new ServiceException(400, "Manga shouldn't have an id ", null);
+        } else if (manga.getRating() != null) {
+            throw new ServiceException(400, "Manga shouldn't have a rating", null);
         }
 
         ++lastId;
@@ -44,21 +54,31 @@ public class MangaRepository {
     }
 
     public Manga updateManga(final Manga manga) {
-        if(manga.getId() == null){
+        if (manga.getId() == null) {
             throw new ServiceException(400, "User should have an id ", null);
+        } else if (manga.getRating() != null) {
+            throw new ServiceException(400, "Manga shouldn't have a rating", null);
         }
 
         final Manga savedManga = getMangaById(manga.getId());
 
         savedManga.setTitle(manga.getTitle());
-        savedManga.setAuthorName(manga.getAuthorName());
-        savedManga.setRating(manga.getRating());
+        savedManga.setAuthor(manga.getAuthor());
+        if (achievementService.getAlreadyReadBookmarksQuantityByMangaId(manga.getId()) > 0) {
+            final double ratingAverage = bookmarkRepository.getAlreadyReadBookmarksByMangaId(manga.getId()).stream()
+                    .mapToDouble(Bookmark::getRating).average().getAsDouble();
+
+            savedManga.setRating(Math.round(ratingAverage * 10.0) / 10.0);
+        } else {
+            savedManga.setRating(0.0);
+        }
+        savedManga.setChapters(manga.getChapters());
 
         return savedManga;
     }
 
     public void deleteMangaById(final Long id) {
-        if(id == null){
+        if (id == null) {
             throw new ServiceException(400, "Id isn't specified", null);
         }
 
@@ -71,5 +91,8 @@ public class MangaRepository {
                 .filter(e -> !e.getId().equals(id))
                 .collect(Collectors.toList());
 
+        if (achievementService.getAllBookmarksQuantityByMangaId(id) > 0) {
+            bookmarkRepository.deleteBookmarksByMangaId(id);
+        }
     }
 }
