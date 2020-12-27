@@ -1,12 +1,12 @@
 package com.lpnu.resource;
 
-import com.lpnu.dto.UserDTO;
+import com.lpnu.model.UserDTO;
 import com.lpnu.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
-import javax.validation.constraints.*;
+import javax.validation.constraints.Size;
 import java.util.List;
 
 @RestController
@@ -25,12 +25,14 @@ public class UserResource {
     }
 
     @PostMapping("/users/{password}")
-    public UserDTO createUser(final @Valid @RequestBody UserDTO userDTO, final @PathVariable String password){
+    public UserDTO createUser(final @Valid @RequestBody UserDTO userDTO,
+                              final @Size(min = 6, max = 24) @PathVariable String password){
         return userService.createUser(userDTO, password);
     }
 
     @PutMapping("/users/{password}")
-    public UserDTO updateUser(final @Valid @RequestBody UserDTO userDTO, final @PathVariable String password){
+    public UserDTO updateUser(final @Valid @RequestBody UserDTO userDTO,
+                              final @Size(min = 6, max = 24) @PathVariable String password){
         return userService.updateUser(userDTO, password);
     }
 

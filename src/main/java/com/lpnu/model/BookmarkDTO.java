@@ -1,4 +1,6 @@
-package com.lpnu.dto;
+package com.lpnu.model;
+
+import com.lpnu.model.enumeration.Status;
 
 import javax.validation.Valid;
 import javax.validation.constraints.DecimalMax;
@@ -21,19 +23,19 @@ public class BookmarkDTO {
 
     public BookmarkDTO(final MangaDTO manga) {
         this.manga = manga;
-        this.status = "want to read";
+        this.status = Status.WANT_TO_READ.toString();
     }
 
     public BookmarkDTO(final MangaDTO manga, final @Valid Double chapter, final @Valid Integer page) {
         this.manga = manga;
-        this.status = "now reading";
+        this.status = Status.NOW_READING.toString();
         this.chapter = chapter;
         this.page = page;
     }
 
     public BookmarkDTO(final MangaDTO manga, final @Valid Double rating) {
         this.manga = manga;
-        this.status = "already read";
+        this.status = Status.ALREADY_READ.toString();
         this.rating = rating;
     }
 

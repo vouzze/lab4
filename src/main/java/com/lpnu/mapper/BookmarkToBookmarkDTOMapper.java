@@ -1,10 +1,11 @@
 package com.lpnu.mapper;
 
-import com.lpnu.dto.BookmarkDTO;
+import com.lpnu.model.BookmarkDTO;
 import com.lpnu.entity.Bookmark;
 import com.lpnu.exception.ServiceException;
 import com.lpnu.repository.MangaRepository;
 import com.lpnu.repository.UserRepository;
+import com.lpnu.util.Util;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -28,7 +29,7 @@ public class BookmarkToBookmarkDTOMapper {
         bookmark.setManga(mangaRepository.getMangaById(mangaId));
         bookmark.setStatus(bookmarkDTO.getStatus());
         if (bookmarkDTO.getRating() != null){
-            bookmark.setRating(Math.round(bookmarkDTO.getRating() * 10.0) / 10.0);
+            bookmark.setRating(Util.round(bookmarkDTO.getRating()));
         } else {
             bookmark.setRating(bookmarkDTO.getRating());
         }
@@ -45,7 +46,7 @@ public class BookmarkToBookmarkDTOMapper {
         bookmarkDTO.setManga(mangaMapper.toDTO(bookmark.getManga()));
         bookmarkDTO.setStatus(bookmark.getStatus());
         if (bookmark.getRating() != null){
-            bookmarkDTO.setRating(Math.round(bookmark.getRating() * 10.0) / 10.0);
+            bookmarkDTO.setRating(Util.round(bookmark.getRating()));
         } else {
             bookmarkDTO.setRating(bookmark.getRating());
         }

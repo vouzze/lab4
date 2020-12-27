@@ -1,5 +1,6 @@
 package com.lpnu.service.impl;
 
+import com.lpnu.model.enumeration.Achievement;
 import com.lpnu.service.AchievementService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -74,27 +75,27 @@ public class AchievementServiceImpl implements AchievementService {
         userService.getUserById(userId);
 
         if (!savedAchievements.containsKey(userId)) {
-            savedAchievements.put(userId, new ArrayList<>(Collections.singleton("Newbie")));
+            savedAchievements.put(userId, new ArrayList<>(Collections.singleton(Achievement.INTRUDER.toString())));
         }
 
         if (getWantToReadBookmarksQuantityByUserId(userId) >= 3 &&
-                !savedAchievements.get(userId).contains("Dreamy")) {
-            savedAchievements.get(userId).add("Dreamy");
+                !savedAchievements.get(userId).contains(Achievement.PROPHET.toString())) {
+            savedAchievements.get(userId).add(Achievement.PROPHET.toString());
         }
 
         if (getNowReadingBookmarksQuantityByUserId(userId) >= 3 &&
-                !savedAchievements.get(userId).contains("Realistic")) {
-            savedAchievements.get(userId).add("Realistic");
+                !savedAchievements.get(userId).contains(Achievement.BOOKMARKER.toString())) {
+            savedAchievements.get(userId).add(Achievement.BOOKMARKER.toString());
         }
 
         if (getAlreadyReadBookmarksQuantityByUserId(userId) >= 3 &&
-                !savedAchievements.get(userId).contains("Experienced")) {
-            savedAchievements.get(userId).add("Experienced");
+                !savedAchievements.get(userId).contains(Achievement.EXPERT.toString())) {
+            savedAchievements.get(userId).add(Achievement.EXPERT.toString());
         }
 
         if (getAllBookmarksQuantityByUserId(userId) >= 10 &&
-                !savedAchievements.get(userId).contains("Overlord")) {
-            savedAchievements.get(userId).add("Overlord");
+                !savedAchievements.get(userId).contains(Achievement.OVERLORD.toString())) {
+            savedAchievements.get(userId).add(Achievement.OVERLORD.toString());
         }
 
         savedAchievements.replace(userId, savedAchievements.get(userId));

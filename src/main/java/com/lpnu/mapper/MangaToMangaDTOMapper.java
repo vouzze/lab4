@@ -1,6 +1,6 @@
 package com.lpnu.mapper;
 
-import com.lpnu.dto.MangaDTO;
+import com.lpnu.model.MangaDTO;
 import com.lpnu.entity.Manga;
 import org.springframework.stereotype.Component;
 

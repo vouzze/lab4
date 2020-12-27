@@ -4,6 +4,7 @@ import com.lpnu.entity.Bookmark;
 import com.lpnu.entity.Manga;
 import com.lpnu.exception.ServiceException;
 import com.lpnu.service.AchievementService;
+import com.lpnu.util.Util;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
@@ -68,7 +69,7 @@ public class MangaRepository {
             final double ratingAverage = bookmarkRepository.getAlreadyReadBookmarksByMangaId(manga.getId()).stream()
                     .mapToDouble(Bookmark::getRating).average().getAsDouble();
 
-            savedManga.setRating(Math.round(ratingAverage * 10.0) / 10.0);
+            savedManga.setRating(Util.round(ratingAverage));
         } else {
             savedManga.setRating(0.0);
         }

@@ -2,7 +2,9 @@ package com.lpnu.repository;
 
 import com.lpnu.entity.Bookmark;
 import com.lpnu.exception.ServiceException;
-import org.codehaus.plexus.component.configurator.converters.composite.CollectionConverter;
+import com.lpnu.model.enumeration.Status;
+import com.lpnu.util.Util;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import javax.annotation.PostConstruct;
@@ -22,8 +24,8 @@ public class BookmarkRepository {
         return savedBookmarks.stream()
                 .filter(e -> e.getUser().getId().equals(userId) && e.getManga().getId().equals(mangaId))
                 .findFirst()
-                .orElseThrow(() -> new ServiceException(400, "Bookmark with user id and manga id: " + userId + " and " +
-                        mangaId + " not found ", null));
+                .orElseThrow(() -> new ServiceException(400, "Bookmark with user id and manga id: " + userId
+                        + " and " + mangaId + " not found ", null));
     }
 
     public List<Bookmark> getBookmarksByUserId(final Long userId) {
@@ -35,21 +37,21 @@ public class BookmarkRepository {
     public List<Bookmark> getWantToReadBookmarksByUserId(final Long userId) {
         return savedBookmarks.stream()
                 .filter(e -> e.getUser().getId().equals(userId))
-                .filter(e -> e.getStatus().equals("want to read"))
+                .filter(e -> e.getStatus().equals(Status.WANT_TO_READ.toString()))
                 .collect(Collectors.toList());
     }
 
     public List<Bookmark> getNowReadingBookmarksByUserId(final Long userId) {
         return savedBookmarks.stream()
                 .filter(e -> e.getUser().getId().equals(userId))
-                .filter(e -> e.getStatus().equals("now reading"))
+                .filter(e -> e.getStatus().equals(Status.NOW_READING.toString()))
                 .collect(Collectors.toList());
     }
 
     public List<Bookmark> getAlreadyReadBookmarksByUserId(final Long userId) {
         return savedBookmarks.stream()
                 .filter(e -> e.getUser().getId().equals(userId))
-                .filter(e -> e.getStatus().equals("already read"))
+                .filter(e -> e.getStatus().equals(Status.ALREADY_READ.toString()))
                 .collect(Collectors.toList());
     }
 
@@ -62,21 +64,21 @@ public class BookmarkRepository {
     public List<Bookmark> getWantToReadBookmarksByMangaId(final Long mangaId) {
         return savedBookmarks.stream()
                 .filter(e -> e.getManga().getId().equals(mangaId))
-                .filter(e -> e.getStatus().equals("want to read"))
+                .filter(e -> e.getStatus().equals(Status.WANT_TO_READ.toString()))
                 .collect(Collectors.toList());
     }
 
     public List<Bookmark> getNowReadingBookmarksByMangaId(final Long mangaId) {
         return savedBookmarks.stream()
                 .filter(e -> e.getManga().getId().equals(mangaId))
-                .filter(e -> e.getStatus().equals("now reading"))
+                .filter(e -> e.getStatus().equals(Status.NOW_READING.toString()))
                 .collect(Collectors.toList());
     }
 
     public List<Bookmark> getAlreadyReadBookmarksByMangaId(final Long mangaId) {
         return savedBookmarks.stream()
                 .filter(e -> e.getManga().getId().equals(mangaId))
-                .filter(e -> e.getStatus().equals("already read"))
+                .filter(e -> e.getStatus().equals(Status.ALREADY_READ.toString()))
                 .collect(Collectors.toList());
     }
 
@@ -86,19 +88,19 @@ public class BookmarkRepository {
 
     public List<Bookmark> getAllWantToReadBookmarks() {
         return savedBookmarks.stream()
-                .filter(e -> e.getStatus().equals("want to read"))
+                .filter(e -> e.getStatus().equals(Status.WANT_TO_READ.toString()))
                 .collect(Collectors.toList());
     }
 
     public List<Bookmark> getAllNowReadingBookmarks() {
         return savedBookmarks.stream()
-                .filter(e -> e.getStatus().equals("now reading"))
+                .filter(e -> e.getStatus().equals(Status.NOW_READING.toString()))
                 .collect(Collectors.toList());
     }
 
     public List<Bookmark> getAllAlreadyReadBookmarks() {
         return savedBookmarks.stream()
-                .filter(e -> e.getStatus().equals("already read"))
+                .filter(e -> e.getStatus().equals(Status.ALREADY_READ.toString()))
                 .collect(Collectors.toList());
     }
 
@@ -131,11 +133,11 @@ public class BookmarkRepository {
         }
 
         if (bookmark.getRating() != null) {
-            bookmark.setStatus("already read");
+            bookmark.setStatus(Status.ALREADY_READ.toString());
         } else if (bookmark.getChapter() != null && bookmark.getPage() != null) {
-            bookmark.setStatus("now reading");
+            bookmark.setStatus(Status.NOW_READING.toString());
         } else {
-            bookmark.setStatus("want to read");
+            bookmark.setStatus(Status.WANT_TO_READ.toString());
         }
 
         savedBookmarks.add(bookmark);
@@ -173,20 +175,20 @@ public class BookmarkRepository {
 
         if (bookmark.getRating() != null) {
             savedBookmark.setManga(bookmark.getManga());
-            savedBookmark.setStatus("already read");
-            savedBookmark.setRating(Math.round(bookmark.getRating() * 10.0) / 10.0);
+            savedBookmark.setStatus(Status.ALREADY_READ.toString());
+            savedBookmark.setRating(Util.round(bookmark.getRating()));
             savedBookmark.setChapter(null);
             savedBookmark.setPage(null);
             savedBookmark.setUser(bookmark.getUser());
         } else if (bookmark.getChapter() != null && bookmark.getPage() != null) {
             savedBookmark.setManga(bookmark.getManga());
-            savedBookmark.setStatus("now reading");
+            savedBookmark.setStatus(Status.NOW_READING.toString());
             savedBookmark.setChapter(bookmark.getChapter());
             savedBookmark.setPage(bookmark.getPage());
             savedBookmark.setUser(bookmark.getUser());
         } else {
             savedBookmark.setManga(bookmark.getManga());
-            savedBookmark.setStatus("want to read");
+            savedBookmark.setStatus(Status.WANT_TO_READ.toString());
             savedBookmark.setRating(null);
             savedBookmark.setChapter(null);
             savedBookmark.setPage(null);
