@@ -1,17 +1,13 @@
 package com.lpnu.service.impl;
 
-import com.lpnu.dto.UserDTO;
+import com.lpnu.model.UserDTO;
 import com.lpnu.exception.ServiceException;
 import com.lpnu.mapper.UserToUserDTOMapper;
 import com.lpnu.repository.UserRepository;
 import com.lpnu.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.PathVariable;
 
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
 import java.util.List;
 import java.util.stream.Collectors;
 

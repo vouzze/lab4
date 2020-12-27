@@ -1,4 +1,4 @@
-package com.lpnu.dto;
+package com.lpnu.model;
 
 import javax.validation.constraints.*;
 import java.util.Map;

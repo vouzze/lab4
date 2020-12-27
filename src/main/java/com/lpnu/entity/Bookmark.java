@@ -1,5 +1,7 @@
 package com.lpnu.entity;
 
+import com.lpnu.model.enumeration.Status;
+
 public class Bookmark {
     Manga manga;
     private String status;
@@ -13,13 +15,13 @@ public class Bookmark {
 
     public Bookmark(final Manga manga, final User user) {
         this.manga = manga;
-        this.status = "want to read";
+        this.status = Status.WANT_TO_READ.toString();
         this.user = user;
     }
 
     public Bookmark(final Manga manga, final Double chapter, final Integer page, final User user) {
         this.manga = manga;
-        this.status = "now reading";
+        this.status = Status.NOW_READING.toString();
         this.chapter = chapter;
         this.page = page;
         this.user = user;
@@ -27,7 +29,7 @@ public class Bookmark {
 
     public Bookmark(final Manga manga, final Double rating, final User user) {
         this.manga = manga;
-        this.status = "already read";
+        this.status = Status.ALREADY_READ.toString();
         this.rating = rating;
         this.user = user;
     }

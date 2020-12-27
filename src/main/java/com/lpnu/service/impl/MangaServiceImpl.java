@@ -1,6 +1,6 @@
 package com.lpnu.service.impl;
 
-import com.lpnu.dto.MangaDTO;
+import com.lpnu.model.MangaDTO;
 import com.lpnu.exception.ServiceException;
 import com.lpnu.mapper.MangaToMangaDTOMapper;
 import com.lpnu.repository.MangaRepository;

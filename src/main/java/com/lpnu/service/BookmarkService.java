@@ -1,6 +1,6 @@
 package com.lpnu.service;
 
-import com.lpnu.dto.BookmarkDTO;
+import com.lpnu.model.BookmarkDTO;
 
 import java.util.List;
 

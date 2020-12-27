@@ -1,12 +1,11 @@
 package com.lpnu.mapper;
 
-import com.lpnu.dto.UserDTO;
+import com.lpnu.model.UserDTO;
 import com.lpnu.entity.Bookmark;
 import com.lpnu.entity.User;
 import org.springframework.stereotype.Component;
 
 import javax.validation.Valid;
-import javax.validation.constraints.Size;
 import java.util.List;
 
 @Component

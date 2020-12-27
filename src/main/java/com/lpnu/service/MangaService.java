@@ -2,7 +2,7 @@ package com.lpnu.service;
 
 
 
-import com.lpnu.dto.MangaDTO;
+import com.lpnu.model.MangaDTO;
 
 import java.util.List;
 

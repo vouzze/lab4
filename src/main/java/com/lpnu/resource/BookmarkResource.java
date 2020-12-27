@@ -1,6 +1,6 @@
 package com.lpnu.resource;
 
-import com.lpnu.dto.BookmarkDTO;
+import com.lpnu.model.BookmarkDTO;
 import com.lpnu.service.BookmarkService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;

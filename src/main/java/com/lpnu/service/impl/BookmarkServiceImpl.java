@@ -1,6 +1,6 @@
 package com.lpnu.service.impl;
 
-import com.lpnu.dto.BookmarkDTO;
+import com.lpnu.model.BookmarkDTO;
 import com.lpnu.exception.ServiceException;
 import com.lpnu.mapper.BookmarkToBookmarkDTOMapper;
 import com.lpnu.repository.BookmarkRepository;

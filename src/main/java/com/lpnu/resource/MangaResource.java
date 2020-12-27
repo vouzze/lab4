@@ -1,6 +1,6 @@
 package com.lpnu.resource;
 
-import com.lpnu.dto.MangaDTO;
+import com.lpnu.model.MangaDTO;
 import com.lpnu.service.MangaService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
